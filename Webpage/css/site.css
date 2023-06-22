@@ -1,0 +1,54 @@
+/*
+    06/21/2023
+    css used for general styling
+*/
+
+/* ---- Site Layout ---- */
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #A1DFFF;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+/* ---- Content Area Layout ---- */
+
+.header {
+    background-color: #333;
+    min-height: 8%;
+    max-height: 10%;
+    height: auto;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    color: white;
+}
+
+.main-container {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 100%;
+    width: 85%;
+    background-color: white;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    padding: 4% 2% 4% 2%;
+}
