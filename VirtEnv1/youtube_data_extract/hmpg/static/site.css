@@ -10,7 +10,7 @@ html, body {
     height: 100%;
     margin: 0;
     box-sizing: border-box;
-    background-color: red;
+    background-color: #A1DFFF;
 }
 
 body * {
@@ -20,25 +20,25 @@ body * {
 /* ---- Content Area Layout ---- */
 
 .header {
-    background-color: black;
+    background-color: #333;
     min-height: 8%;
     max-height: 10%;
     height: auto;
     padding: 10px;
-    margin: auto;
+    margin: 0;
     width: 100%;
     position: -webkit-sticky;
     position: sticky;
-    text-align: center;
     top: 0;
     color: white;
+    text-align: center;
 }
 
 .main-container {
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    min-height: 90%;
+    min-height: 100%;
     width: 85%;
     background-color: white;
     border-radius: 25px;
