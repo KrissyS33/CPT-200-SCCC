@@ -9,14 +9,14 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 from django.templatetags.static import static
-import json
+from youtube_data_extract.settings import BASE_DIR
+import csv  
 
 SCOPES = ['https://www.googleapis.com/auth/yt-analytics.readonly']
 
 API_SERVICE_NAME = 'youtubeAnalytics'
 API_VERSION = 'v2'
-#TODO: Find a way to make this path relative instead of hardcoded to my machine
-CLIENT_SECRETS_FILE = r'C:\Users\morga\OneDrive\Documents\GitHub\CPT-200-SCCC\VirtEnv1\youtube_data_extract\API\static\secret file.json'
+CLIENT_SECRETS_FILE = os.path.join(BASE_DIR,'API\static\secret file.json')
 
 def get_service():
     flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
@@ -33,7 +33,34 @@ def execute_api_request(client_library_function, **kwargs):
     **kwargs
     ).execute()
 
-    return response
+    header = response['columnHeaders']
+    rows = response['rows']
+    
+    csvResponse = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="api_return.txt"'},
+    )
+
+    csvwriter = csv.writer(csvResponse)
+
+    headerIndex = 0
+    headerList = []
+
+    for x in header:
+      tempDict = header[headerIndex]
+      headerList.append(tempDict['name'])
+      headerIndex += 1
+      
+    csvwriter.writerow(headerList)
+    
+    rowIndex = 0
+
+    for y in rows:
+      tempList = rows[rowIndex]
+      csvwriter.writerow(tempList)
+      rowIndex += 1
+    
+    return csvResponse
 
 def api(request):
     # Disable OAuthlib's HTTPs verification when running locally.
@@ -42,14 +69,7 @@ def api(request):
 
     youtubeAnalytics = get_service()
 
-    response2 = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": 'attachment; filename="api_return.txt"'},
-    )
-    
-    #TODO: Figure out a way to write to a CSV in a better format
-    writer = response2.write(json.dumps(   
-    (execute_api_request(
+    return(execute_api_request(
     youtubeAnalytics.reports().query,
     ids='channel==MINE',
     startDate='2017-01-01',
@@ -57,6 +77,5 @@ def api(request):
     metrics='estimatedMinutesWatched,views,likes,subscribersGained',
     dimensions='day',
     sort='day'
-    ))))
-
-    return response2
+    ))
+    
