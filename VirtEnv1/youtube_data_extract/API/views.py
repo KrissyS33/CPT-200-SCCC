@@ -69,6 +69,8 @@ def api(request):
 
     youtubeAnalytics = get_service()
 
+    print(request.POST.getlist("from_date"))
+
     return(execute_api_request(
     youtubeAnalytics.reports().query,
     ids='channel==MINE',
@@ -78,4 +80,3 @@ def api(request):
     dimensions='day',
     sort='day'
     ))
-    
