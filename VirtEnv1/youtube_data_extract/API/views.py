@@ -38,7 +38,7 @@ def execute_api_request(client_library_function, **kwargs):
     
     csvResponse = HttpResponse(
         content_type="text/csv",
-        headers={"Content-Disposition": 'attachment; filename="api_return.txt"'},
+        headers={"Content-Disposition": 'attachment; filename="api_return.csv"'},
     )
 
     csvwriter = csv.writer(csvResponse)
@@ -69,14 +69,48 @@ def api(request):
 
     youtubeAnalytics = get_service()
 
-    print(request.POST.getlist("from_date"))
+    metricsString = ''
+    
+    if request.GET.get('request1') == 'views':
+       metricsString += ',' + request.GET.get('request1') 
 
+    if request.GET.get('request2') == 'comments':
+       metricsString += ',' + request.GET.get('request2')
+
+    if request.GET.get('request3') == 'likes':
+       metricsString += ',' + request.GET.get('request3')
+
+    if request.GET.get('request4') == 'dislikes':
+       metricsString += ',' + request.GET.get('request4')
+
+    if request.GET.get('request5') == 'estimatedMinutesWatched':
+       metricsString += ',' + request.GET.get('request5')
+
+    if request.GET.get('request6') == 'averageViewDuration':
+       metricsString += ',' + request.GET.get('request6')
+
+    if request.GET.get('request7') == 'subscribersGained':
+       metricsString += ',' + request.GET.get('request7')
+
+    if request.GET.get('request8') == 'subscribersLost':
+       metricsString += ',' + request.GET.get('request8')
+
+    if request.GET.get('request9') == 'shares':
+       metricsString += ',' + request.GET.get('request9')
+
+    if request.GET.get('request10') == 'annotationClickThroughRate':
+       metricsString += ',' + request.GET.get('request10')
+
+    if request.GET.get('request11') == 'annotationCloseRate':
+       metricsString += ',' + request.GET.get('request11')  
+
+    #TODO: ERROR handling for future data requests
     return(execute_api_request(
     youtubeAnalytics.reports().query,
     ids='channel==MINE',
-    startDate='2017-01-01',
-    endDate='2017-12-31',
-    metrics='estimatedMinutesWatched,views,likes,subscribersGained',
+    startDate= request.GET.get('startDate'),
+    endDate= request.GET.get('endDate'),
+    metrics=metricsString,
     dimensions='day',
     sort='day'
     ))

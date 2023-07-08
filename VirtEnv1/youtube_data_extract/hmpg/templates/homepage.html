@@ -26,27 +26,39 @@
                 You must accept to giving YouAnalytics Access to you your YouTube account information.
             </p>
 
-            <form action="/api"
-            method = "post">
+            <form action="/api">
             <p>Please choose a to and from date (Mandatory):</p><br>
             <label for="from_date">From date:</label>
-            <input type="date" id="from_date" name="from_date" required>
+            <input type="date" id="from_date" name="startDate" required>
             <label for="to_date">To date:</label>
-            <input type="date" id="to_date" name="to_date" required><br>
+            <input type="date" id="to_date" name="endDate" required><br>
 
             <p>Please choose which analytic services you would like:</p>
-            <input type="checkbox" id="req1" name="request" value="Views">
+            <input type="checkbox" id="req1" name="request1" value="views">
             <label for="request1"> Views</label><br>
-            <input type="checkbox" id="req2" name="request" value="Comments">
+            <input type="checkbox" id="req2" name="request2" value="comments">
             <label for="request2"> Comments</label><br>
-            <input type="checkbox" id="req3" name="request" value="Likes">
+            <input type="checkbox" id="req3" name="request3" value="likes">
             <label for="request3"> Likes</label><br>
-            <input type="checkbox" id="req4" name="request" value="Dislikes">
+            <input type="checkbox" id="req4" name="request4" value="dislikes">
             <label for="request4"> Dislikes</label><br>
-            <input type="checkbox" id="req5" name="request" value="Estimated Minutes Watched">
+            <input type="checkbox" id="req5" name="request5" value="estimatedMinutesWatched">
             <label for="request5"> Estimated Minutes Watched</label><br>
-            <input type="checkbox" id="req6" name="request" value="Average View Duration">
+            <input type="checkbox" id="req6" name="request6" value="averageViewDuration">
             <label for="request6"> Average View Duration</label><br>
+            <input type="checkbox" id="req7" name="request7" value="subscribersGained">
+            <label for="request7"> Subscribers Gained</label><br>
+            <input type="checkbox" id="req8" name="request8" value="subscribersLost">
+            <label for="request8"> Subscribers Lost</label><br>
+            <input type="checkbox" id="req9" name="request9" value="shares">
+            <label for="request9"> Shares</label><br>
+            <input type="checkbox" id="req10" name="request10" value="annotationClickThroughRate">
+            <label for="request10"> Annotation Click Through Rate</label><br>
+            <input type="checkbox" id="req11" name="request11" value="annotationCloseRate">
+            <label for="request11"> Annotation Close Rate</label><br>
+
+            <p>Please choose which </p>
+
             <input type="submit" value="Submit">
             </form>
         </div>
