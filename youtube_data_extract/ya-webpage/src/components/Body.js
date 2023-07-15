@@ -1,5 +1,4 @@
 import React from 'react'
-import CalenderRange from './CalenderRange'
 
 
 const Body = () => {
