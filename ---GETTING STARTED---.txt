@@ -1,0 +1,21 @@
+### WHAT NEEDS TO BE INSTALLED ###
+Node JS 
+( https://nodejs.org/en ) installation guide ( https://www.youtube.com/watch?v=EIzdQxMXcrc )
+-
+React 
+installation guide 'maybe not necessary' ( https://www.youtube.com/watch?v=yOAZDymGWVw )
+-
+Tailwind CSS
+( https://tailwindcss.com/docs/installation ) installation guide 'maybe not necessary' ( https://www.youtube.com/watch?v=arftp8kFBBg&t=249s )
+
+[[[[[!!!! IF FILES ARE MISSING COPY THIS IN TERMINAL  -> npm install react-scripts --save <- !!!!]]]]]
+-
+Visual Studio Code [recommended]
+( https://code.visualstudio.com/download )
+
+### TO START PROJECT ###
+In terminal type:
+cd ya-webpage
+npm start
+
+###!!!! IF WEBPAGE DOES NOT WORK LET ME KNOW !!!###

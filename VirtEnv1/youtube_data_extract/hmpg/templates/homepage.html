@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+    06/21/2023
+    Basic webpage for CPT-200-R96 Project
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'site.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </head>
+
+    <body>
+        <h1 class="header">
+            YouAnalytics
+        </h1>
+
+        <h2 class="header">
+            K.M.A.R.T Consulting
+        </h2>
+
+        <div class="main-container">
+            <p> This application will return YouTube chanel analytic data. Please enter a date range and which analytic services you would like. The date range is mandatory.
+                After hitting the Submit button, you will be directed to provide your Google account information via Google Account Authentication Services. 
+                You must accept to giving YouAnalytics Access to you your YouTube account information.
+            </p>
+
+            <form action="/api">
+            <p>Please choose a to and from date (Mandatory):</p><br>
+            <label for="from_date">From date:</label>
+            <input type="date" id="from_date" name="startDate" required>
+            <label for="to_date">To date:</label>
+            <input type="date" id="to_date" name="endDate" required><br>
+
+            <p>Please choose which analytic services you would like:</p>
+            <input type="checkbox" id="req1" name="request1" value="views">
+            <label for="request1"> Views</label><br>
+            <input type="checkbox" id="req2" name="request2" value="comments">
+            <label for="request2"> Comments</label><br>
+            <input type="checkbox" id="req3" name="request3" value="likes">
+            <label for="request3"> Likes</label><br>
+            <input type="checkbox" id="req4" name="request4" value="dislikes">
+            <label for="request4"> Dislikes</label><br>
+            <input type="checkbox" id="req5" name="request5" value="estimatedMinutesWatched">
+            <label for="request5"> Estimated Minutes Watched</label><br>
+            <input type="checkbox" id="req6" name="request6" value="averageViewDuration">
+            <label for="request6"> Average View Duration</label><br>
+            <input type="checkbox" id="req7" name="request7" value="subscribersGained">
+            <label for="request7"> Subscribers Gained</label><br>
+            <input type="checkbox" id="req8" name="request8" value="subscribersLost">
+            <label for="request8"> Subscribers Lost</label><br>
+            <input type="checkbox" id="req9" name="request9" value="shares">
+            <label for="request9"> Shares</label><br>
+            <input type="checkbox" id="req10" name="request10" value="annotationClickThroughRate">
+            <label for="request10"> Annotation Click Through Rate</label><br>
+            <input type="checkbox" id="req11" name="request11" value="annotationCloseRate">
+            <label for="request11"> Annotation Close Rate</label><br>
+
+            <p>Please choose which </p>
+
+            <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div class="footer">
+            <!-- TODO: Add basic information about project collaboraters-->
+            Placeholder text
+        </div>
+    </body>
+</html>

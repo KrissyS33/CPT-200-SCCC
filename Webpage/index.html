@@ -11,12 +11,27 @@
     </head>
 
     <body>
-        <div class="header">
-            Placeholder text
-        </div>
+        <h1 class="header">
+            YouAnalytics
+        </h1>
 
         <div class="main-container">
-            Placeholder text
+            <form action="/request">
+            <p>Please choose which analytic services you would like:</p>
+            <input type="checkbox" id="req1" name="request1" value="Views">
+            <label for="request1"> Views</label><br>
+            <input type="checkbox" id="req2" name="request2" value="Comments">
+            <label for="request2"> Comments</label><br>
+            <input type="checkbox" id="req3" name="request3" value="Likes">
+            <label for="request3"> Likes</label><br>
+            <input type="checkbox" id="req4" name="request4" value="Dislikes">
+            <label for="request4"> Dislikes</label><br>
+            <input type="checkbox" id="req5" name="request5" value="Estimated Minutes Watched">
+            <label for="request5"> Estimated Minutes Watched</label><br>
+            <input type="checkbox" id="req6" name="request6" value="Average View Duration">
+            <label for="request6"> Average View Duration</label><br>
+            <input type="submit" value="Submit">
+            </form>
         </div>
 
         <div class="footer">
