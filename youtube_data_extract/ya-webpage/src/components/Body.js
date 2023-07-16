@@ -1,4 +1,5 @@
 import React from 'react'
+import CalenderRange from './CalenderRange'
 
 
 const Body = () => {
@@ -42,6 +43,15 @@ const Body = () => {
                         <input type="checkbox" id="req11" name="request11" value="annotationCloseRate" className='w-6 h-6'/>
                         <label htmlFor='view-checkbox' className='ml-2 text-xl font-medium'>ANNOTATION CLOSE RATE </label>
                     </div>
+
+                    <h1 className ='p-20 font-bold text-center md:text-5xl sm:text-4xl text-2xl md-py-6 '>Select The Date Range</h1>
+                        <div className='mx-auto'>
+                            <CalenderRange />
+                        </div>
+
+                        <div className='p-20'>
+                            <button className='bg-red-800 text-white text-xl w-[200px] rounded-full font-medium my-6 mx-auto py-3'>SUBMIT</button>
+                        </div>
 
                     </form>
                 

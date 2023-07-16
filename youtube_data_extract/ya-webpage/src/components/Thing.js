@@ -1,3 +1,4 @@
+/*
 import React from 'react'
 import CalenderRange from './CalenderRange'
 
@@ -21,3 +22,4 @@ const Thing = () => {
 }
 
 export default Thing
+*/
