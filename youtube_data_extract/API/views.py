@@ -10,7 +10,9 @@ from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 from django.templatetags.static import static
 from youtube_data_extract.settings import BASE_DIR
+from wsgiref.util import FileWrapper
 import csv  
+import zipfile
 
 SCOPES = ['https://www.googleapis.com/auth/yt-analytics.readonly']
 
@@ -36,30 +38,42 @@ def execute_api_request(client_library_function, **kwargs):
     header = response['columnHeaders']
     rows = response['rows']
     
+    with open(os.path.join(BASE_DIR,r'API\files\header_file.csv'),'w') as csvHeader:
+   
+      csvWriter = csv.writer(csvHeader)
+
+      headerIndex = 0
+      headerList = []
+
+      for x in header:
+         tempDict = header[headerIndex]
+         headerList.append(tempDict['name'])
+         headerIndex += 1
+      
+      csvWriter.writerow(headerList)
+    
+    with open(os.path.join(BASE_DIR,r'API\files\line_file.csv'),'w') as csvLines:
+         
+      csvWriter = csv.writer(csvLines)
+
+      rowIndex = 0
+
+      for y in rows:
+         tempList = rows[rowIndex]
+         csvWriter.writerow(tempList)
+         rowIndex += 1
+    
+    with zipfile.ZipFile(os.path.join(BASE_DIR,r'API\files\youtube_data.zip'),'w') as zip:
+      zip.write(os.path.join(BASE_DIR,r'API\files\header_file.csv'),os.path.basename(os.path.join(BASE_DIR,r'API\files\header_file.csv')))
+      zip.write(os.path.join(BASE_DIR,r'API\files\line_file.csv'),os.path.basename(os.path.join(BASE_DIR,r'API\files\line_file.csv')))
+    
     csvResponse = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": 'attachment; filename="youtube_data.csv"'},
+       FileWrapper(open(os.path.join(BASE_DIR,r'API\files\youtube_data.zip'),'rb')),
+        headers={
+           "content_Type":"application/zip",
+           "Content-Disposition": 'attachment; filename="youtube_data.zip"'},
     )
 
-    csvWriter = csv.writer(csvResponse)
-
-    headerIndex = 0
-    headerList = []
-
-    for x in header:
-      tempDict = header[headerIndex]
-      headerList.append(tempDict['name'])
-      headerIndex += 1
-      
-    csvWriter.writerow(headerList)
-    
-    rowIndex = 0
-
-    for y in rows:
-      tempList = rows[rowIndex]
-      csvWriter.writerow(tempList)
-      rowIndex += 1
-    
     return csvResponse
 
 def api(request):
