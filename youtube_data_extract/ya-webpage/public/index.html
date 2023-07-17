@@ -10,10 +10,20 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css"/>
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <py-config>
+      packages = ["plotly", "pandas"]
+    </py-config>
     <title>YouAnalytics</title>
   </head>
   <body>
+    <script type='text/javascript'>
+      function plot(graph, chart) {
+        var figure = JSON.parse(graph)
+        Plotly.newPlot(chart, figure, {});
+      }
+    </script>
     <div id="root"></div>
   </body>
 </html>

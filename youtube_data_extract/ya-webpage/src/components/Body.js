@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Body = () => {
         return (
             <div className='text-black'>
@@ -44,7 +43,92 @@ const Body = () => {
                     </div>
 
                     </form>
-                
+
+                    <div>
+                        <div>
+                            <label>Insert header file</label>
+                            <input type="file" id="fileGraphHeader" name="fileGraphHeader"/>
+                        </div>
+                        <div>
+                            <label>Insert lines file</label>
+                            <input type="file" id="fileGraphLines" name="fileGraphLines"/>
+                        </div>
+                        <div className='p-20'>
+                                <button type="button" id="runButton">SUBMIT</button>
+                         </div>
+                    </div>
+                    <div 
+                        dangerouslySetInnerHTML={{__html:
+                        `
+                        <py-script>
+                        import os
+                        import pandas as pd
+                        import plotly.express as px
+                        from js import document, FileReader
+                        from pyodide.ffi import create_proxy
+                        import asyncio
+                        
+                        # Global Scope, ready to hold csv
+                        dataContent, metrics  = None, None
+                  
+                        # Create Python Proxy's
+                        def main():
+                            function_proxy = create_proxy(runGraph)
+                            header_proxy = create_proxy(grabHeader)
+                            lines_proxy = create_proxy(grabLines)
+                    
+                            e = document.getElementById("runButton")
+                            e.addEventListener("click", function_proxy)
+                            b = document.getElementById("fileGraphHeader")
+                            b.addEventListener("change", header_proxy)
+                            c = document.getElementById("fileGraphLines")
+                            c.addEventListener("change", lines_proxy)
+                        
+                        # Grab header content
+                        async def grabHeader(event):
+                            fileList = event.target.files
+                            metrics = fileList[0]
+                        
+                        # Grab lines content
+                        async def grabLines(event):
+                            fileList = event.target.files
+                            dataContent = fileList[0]
+                  
+                        # Creates graph
+                        def runGraph(event):
+                            # Convert the 'day' column to datetime format
+                            dataContent['day'] = pd.to_datetime(data['day'])
+                        
+                            # Set 'day' as the DataFrame index
+                            dataContent.set_index('day', inplace=True)
+                    
+                            for i in range(len(metrics)):
+                                if i != 0:
+                                    metric = metrics[i]
+                                    fig = px.line(dataContent, x=dataContent.index, y=metric, title=metric, labels={'x': 'Day', 'y': 'Count'}, color_discrete_sequence=[colors[i]])
+                                    fig.update_traces(mode='markers+lines', marker=dict(size=8))
+                                    fig.update_layout(xaxis_tickformat='%b %d, %Y', hovermode='x')
+                                    chartNum = f"chart{i+1}"
+                                    js.plot(fig.to_json(), chartNum)
+                  
+                        main()
+                        </py-script>
+                        `
+                        }}
+                        />
+                    <div>
+                        <div id="chart1"></div>
+                        <div id="chart2"></div>
+                        <div id="chart3"></div>
+                        <div id="chart4"></div>
+                        <div id="chart5"></div>
+                        <div id="chart6"></div>
+                        <div id="chart7"></div>
+                        <div id="chart8"></div>
+                        <div id="chart9"></div>
+                        <div id="chart10"></div>
+                        <div id="chart11"></div>
+                    </div>
                 </div>
             </div>
         )
