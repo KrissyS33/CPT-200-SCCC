@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios'
 import Papa from 'papaparse'
 import LineChart from "../components/LineChart"
 import Chart from "chart.js/auto"
 
 
 const GraphForm = () => {
-    const [headerFile, setHeaderFile] = useState("")
-    const [linesFile, setLinesFile] = useState("")
-    var [headContent, setHeadContent] = useState([])
-    var [linesContent, setLinesContent] = useState([])
+    // Interacts with files
+    var [headerFile, setHeaderFile] = useState("")
+    var [linesFile, setLinesFile] = useState("")
     var [gData, setGData] = useState({
         labels: ['temp'],
         datasets: [
@@ -19,12 +17,14 @@ const GraphForm = () => {
             }
         ]
     })
+
+    // Used to manage information
     var [dataNumbers, setDataNumbers] = useState([])
     var [days, setDays] = useState([])
     var [labels, setLabels] = useState([])
-    var [loopBreaker, setLoopBreaker] = useState(false)
+    var [loopBreaker, setLoopBreaker] = useState(false) // LoopBreaker is not ideal, but it is a stopgap solution used to stop useEffect from running infinitely
 
-
+    // When detecting changes in any of the states/components above, this is run. When all criteria are met, we can generate a graph
     useEffect(() => {
         if((dataNumbers.length > 0) && (days.length > 0) && (labels.length > 0) && (loopBreaker)) {
             console.log(dataNumbers)
@@ -40,13 +40,15 @@ const GraphForm = () => {
             }
             
             console.log(constructedDataSet)
+
             // Load the data into gData
             setGData({
                 labels: days,
                 datasets: constructedDataSet
             })
-
             document.getElementById("graphHold").style.visibility = "visible"
+
+            // loopBreaker to off
             setLoopBreaker(false)
         }
     })
@@ -67,6 +69,7 @@ const GraphForm = () => {
 
     // Activates upon pressing submit button. USE ONLY WHEN FILES ARE ALREADY UPLOADED FOR INTENDED RESULTS
     function handleSubmit(event) {
+        // Get some basic variables to hold intermediate data, as well as turn on loopBreaker.
         setLoopBreaker(true)
         event.preventDefault()
         var xdataNumbers = []
@@ -78,7 +81,7 @@ const GraphForm = () => {
             skipEmptyLines: true,
             complete: function(results) {
                 console.log(results.data)
-                // setHeadContent(results.data)
+
                 // Insert obtained data into a list
                 for (let i = 1; i < results.data[0].length; i++) {
                     xlabels.push(results.data[0][i])
@@ -93,7 +96,7 @@ const GraphForm = () => {
             skipEmptyLines: true,
             complete: function(results) {
                 console.log(results.data)
-                // setLinesContent(results.data)
+
                 // Set up information in a way thats easier to utilize
                 // Firstly, pre-create lists equal to number of entries.
                 for (let i = 1; i < results.data[0].length; i++) {
