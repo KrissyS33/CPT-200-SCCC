@@ -3,7 +3,6 @@ import Papa from 'papaparse'
 import LineChart from "../components/LineChart"
 import Chart from "chart.js/auto"
 
-
 const GraphForm = () => {
     // Interacts with files
     var [headerFile, setHeaderFile] = useState("")
@@ -48,8 +47,14 @@ const GraphForm = () => {
             })
             document.getElementById("graphHold").style.visibility = "visible"
 
-            // loopBreaker to off
+            // Reset various states and content.
             setLoopBreaker(false)
+            setDays([])
+            setLabels([])
+            setDataNumbers([])
+
+            // Trying to reinput a file with the exact same name back to back will not work. Reset the input fields altogether to fix this issue.
+            document.getElementById("formContent").reset()
         }
     })
 
@@ -136,6 +141,7 @@ const GraphForm = () => {
                 <LineChart 
                     chartData={gData}
                     options= {{
+                        responsive: true,
                         title:{
                             display:true,
                             text:'Your Data',
@@ -144,6 +150,11 @@ const GraphForm = () => {
                         legend:{
                             display:true,
                             position:'right'
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }}
                 />
