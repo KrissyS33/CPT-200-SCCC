@@ -137,7 +137,7 @@ const GraphForm = () => {
         <div className="min-w-[80px] mt-[-96px] mb-[10%] min-h-[60%] max-w-[70vw] max-h-full mx-auto justify-center text-center p-8 border-t border-gray-900/40 pb-15">
             <form id="formContent" onSubmit={handleSubmit}>
                 <h1 className="p-9 text-3xl font-medium">Graph Your Data</h1>
-                <h2 className="text-base font-semibold leading-7 text-gray-900">Upload Header and Lines files</h2>
+                <h2 className="text-base font-semibold leading-7 text-gray-900">Upload Header and Lines files (In that order)</h2>
 
                 <input className="mx-[20px] w-[18rem] items-center rounded-md border border-transparent bg-red-600 px-8 py-3 
                 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" 
