@@ -58,6 +58,11 @@ const GraphForm = () => {
         }
     })
 
+    // Handle resizing the graph. Graph may overflow when there is major difference between height and width in window.
+    const handleResize = (chart) => {
+        chart.resize(chart.width, "100%");
+    }
+
     // Event handling when a header is uploaded
     function handleHeaderChange(event) {
         const content = event.target.files[0]
@@ -129,18 +134,28 @@ const GraphForm = () => {
     }
     
     return (
-        <div>
+        <div className="min-w-[80px] mt-[-96px] mb-[10%] min-h-[60%] max-w-[70vw] max-h-full mx-auto justify-center text-center p-8 border-t border-gray-900/40 pb-15">
             <form id="formContent" onSubmit={handleSubmit}>
-                <h1>Upload Header and Lines files</h1>
+                <h1 className="p-9 text-3xl font-medium">Graph Your Data</h1>
+                <h2 className="text-base font-semibold leading-7 text-gray-900">Upload Header and Lines files</h2>
 
-                <input type="file" id="headerFile" onChange={handleHeaderChange}></input>
-                <input type="file" id="linesFile" onChange={handleLinesChange}></input>
-                <button type="submit" onSubmit={handleSubmit}>Submit</button>
+                <input className="mx-[20px] w-[18rem] items-center rounded-md border border-transparent bg-red-600 px-8 py-3 
+                text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" 
+                type="file" id="headerFile" onChange={handleHeaderChange}></input>
+                <input className="mx-[20px] w-[18rem] items-center rounded-md border border-transparent bg-red-600 px-8 py-3 
+                text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                type="file" id="linesFile" onChange={handleLinesChange}></input>
+                <button className="m-[20px] w-[18rem] items-center rounded-md border border-transparent bg-red-600 px-8 py-3 
+                text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                type="submit" onSubmit={handleSubmit}>Submit</button>
             </form>
-            <div id="graphHold" style={{visibility: "hidden"}}>
+            <div id="graphHold" className="relative p-5 w-[65vw] h-[48vh] m-auto" style={{visibility: "hidden"}}>
                 <LineChart 
+                    className="relative"
                     chartData={gData}
                     options= {{
+                        onResize: handleResize,
+                        maintainAspectRatio: false,
                         responsive: true,
                         title:{
                             display:true,
